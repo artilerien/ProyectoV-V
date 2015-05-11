@@ -12,13 +12,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.when;
-
-import org.mockito.Mockito;
 /**
  *
  * @author linux1
@@ -28,24 +24,10 @@ public class CabinaTest {
     @Mock
     private Reloj RelojMock;
     
-    public CabinaTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-    
-    @After
-    public void tearDown() {
+        when(RelojMock.tiempoAhora()).thenReturn(10);
     }
 
     /**
@@ -54,9 +36,9 @@ public class CabinaTest {
     @Test
     public void testEncolarCoche() {
         System.out.println("encolarCoche");
-        Reloj reloj = null;
-        Cabina instance = null;
-        instance.encolarCoche(reloj);
+        Cabina cab = new Cabina(5,10);
+        cab.encolarCoche(RelojMock);
+        
     }
 
     /**
