@@ -75,7 +75,7 @@ public class PeajeTest {
     public void tearDown() {
     }
 
-/*
+
     //Test of guardarCola method, of class Peaje.
 
     @Test (expected=IndexOutOfBoundsException.class)
@@ -143,7 +143,7 @@ public class PeajeTest {
         //habra un 10 % de probabilidad de error en el caso de q tenga 2 cabinas
         //y un 40% (30 + 10) en el caso de que tenga una sola cabina. 
     }
- */   
+ /* */   
     @Test 
     public void testEligeCabina2() {
         System.out.println("eligeCabina2");
