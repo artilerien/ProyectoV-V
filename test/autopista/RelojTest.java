@@ -46,8 +46,9 @@ public class RelojTest {
         System.out.println("aCero");
         Reloj instance = new Reloj();
         instance.aCero();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int expResult = 0;
+        int result = instance.tiempoAhora();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -60,8 +61,6 @@ public class RelojTest {
         int expResult = 0;
         int result = instance.tiempoAhora();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,8 +71,9 @@ public class RelojTest {
         System.out.println("tic");
         Reloj instance = new Reloj();
         instance.tic();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        int expResult = 1;
+        int result = instance.tiempoAhora();
+        assertEquals(expResult, result);      
+    }   
     
 }
