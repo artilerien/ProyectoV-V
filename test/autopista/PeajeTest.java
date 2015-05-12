@@ -115,7 +115,28 @@ public class PeajeTest {
         //result siempre sera 0, 1 o 2
         //Funciona solo con peajes entre 3-5 cabinas,
     }
-   /* 
+    
+    @Test 
+    public void testEligeCabina2() {
+        System.out.println("eligeCabina2");
+        Peaje instance = new Peaje(5);
+        int expResult = 2;
+        int result = instance.eligeCabina();
+        assertTrue(result <= expResult);
+    }  
+  
+    
+    @Test (expected=ArrayIndexOutOfBoundsException.class)
+    public void testEligeCabina3() {
+        System.out.println("eligeCabina3");
+        Peaje instance = new Peaje(6); //Error con peajes de mas de 5 cabinas
+        int expResult = 2;
+        int result = instance.eligeCabina();
+        assertTrue(result <= expResult);
+    }  
+  
+
+
      // Test of rondaCabinas method, of class Peaje.
     @Test
     public void testRondaCabinas0() {
@@ -155,5 +176,5 @@ public class PeajeTest {
         Peaje instance = new Peaje(5);
         instance.estado(Reloj0Mock);
     }
-    */
+
 }
