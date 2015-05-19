@@ -64,8 +64,11 @@ public class PeajeTest {
         when(Reloj2Mock.tiempoAhora()).thenReturn(2);
         when(CabinasMock.add(CabinaMock)).thenReturn(true);
         when(CabinasMock.get(0)).thenReturn(CabinaMock);
-        when(CabinaMock.getTotalEsperadoConCola(Reloj0Mock)).thenReturn(1);
+        //when(CabinaMock.getMaxCoches()).thenReturn(1);
+        //when(CabinaMock.getNCoches()).thenReturn(1);
+        when(CabinaMock.getTotalEsperado()).thenReturn(1);
         when(CabinaMock.getTotalEsperadoConCola(Reloj1Mock)).thenReturn(2);
+        when(CabinaMock.getTotalEsperadoConCola(Reloj2Mock)).thenReturn(3);
         when(CabinaMock.getTotalEsperadoConCola(Reloj2Mock)).thenReturn(3);
     }
     
@@ -76,87 +79,73 @@ public class PeajeTest {
 
     //Test of guardarCola method, of class Peaje.
 
-    @Test
+    @Test (expected=ArithmeticException.class)
     public void testGuardarCola0() {
         System.out.println("guardarCola0");
         Peaje instance = new Peaje(5);
-        instance.guardarCola(0, Reloj1Mock);   
-        
-        
-        
-        
+        instance.guardarCola(0, Reloj0Mock);
+        instance.guardarCola(0, Reloj1Mock); 
+        instance.guardarCola(0, Reloj2Mock); 
+        instance.estado(Reloj2Mock);
+        //Resultados de la cabina 1
+        //Numero máximo de coches: 3
+        //Coches servidos: 0
     }
 
     @Test (expected=IndexOutOfBoundsException.class)
-    public void testGuardarCola10() {
-        System.out.println("guardarCola1");
-        int nCab = 5;
+    public void testGuardarCola1() {
+        System.out.println("guardarCola0");
         Peaje instance = new Peaje(5);
-        instance.guardarCola(nCab, Reloj0Mock);
+        instance.guardarCola(0, Reloj0Mock);
+        instance.guardarCola(5, Reloj1Mock); //cabina en la posicion 5 del array no existe
+        instance.estado(Reloj2Mock);
+        //Resultados de la cabina 1
+        //Numero máximo de coches: 3
+        //Coches servidos: 0
     }
        
-    @Test //Mismo test que el anterior pero con un reloj cuya hora es diferente de 0, funciona correctamente tambien
+    @Test  (expected=ArrayIndexOutOfBoundsException.class)
     public void testGuardarCola22() {
         System.out.println("guardarCola21");
-        int nCab = 1;
+        int nCab = -1; 
         Peaje instance = new Peaje(5);
         instance.guardarCola(nCab, Reloj2Mock);
     }
-     
-     //Test of eligeCabina method, of class Peaje.
     
-    @Test  //Siempre debe elegir una de las 3 cabinas que menos coches tengan = suponemos que la funcion ordenar funciona correctamente, luego debera devolver valores entre 0-2
-    public void testEligeCabina0() {
-        System.out.println("eligeCabina1");
-        Peaje instance = new Peaje(3);; //Peaje con 1 cabina
+     //Test of eligeCabina method, of class Peaje.
+   
+    @Test  //Siempre debe elegir 1 de las 3 cabinas que menos coches tengan = suponemos que la funcion ordenar funciona correctamente, luego debera devolver valores entre 0-2
+    public void testEligeCabina() {
+        System.out.println("eligeCabina");
+        Peaje instance = new Peaje(5);; 
         int expResult = 2;
         int result = instance.eligeCabina(); 
         assertTrue(result <= expResult); //Asi aseguramos que el test nunca falla
         //result siempre sera 0, 1 o 2
-        //Funciona solo con peajes entre 3-5 cabinas,
     }
-    
-    @Test 
-    public void testEligeCabina2() {
-        System.out.println("eligeCabina2");
-        Peaje instance = new Peaje(5);
-        int expResult = 2;
-        int result = instance.eligeCabina();
-        assertTrue(result <= expResult);
-    }  
-  
-    
-    @Test (expected=ArrayIndexOutOfBoundsException.class)
-    public void testEligeCabina3() {
-        System.out.println("eligeCabina3");
-        Peaje instance = new Peaje(6); //Error con peajes de mas de 5 cabinas
-        int expResult = 2;
-        int result = instance.eligeCabina();
-        assertTrue(result <= expResult);
-    }  
-  
-
-
+   
      // Test of rondaCabinas method, of class Peaje.
-    @Test
+    @Test(expected = Exception.class)
     public void testRondaCabinas0() {
         System.out.println("rondaCabinas0");
         Peaje instance = new Peaje(5);
-        instance.rondaCabinas(Reloj0Mock);
+        instance.rondaCabinas(Reloj0Mock); //Lanzara una NoSuchElementExcepcion
+        
+    }
+    
+    // Test of rondaCabinas method, of class Peaje.
+    @Test
+    public void testRondaCabinas1() {
+        System.out.println("rondaCabinas0");
+        Peaje instance = new Peaje(5);
+        instance.rondaCabinas(Reloj1Mock); 
         
     }
 
-    @Test
-    public void testRondaCabinas1() {
-        System.out.println("rondaCabinas1");
-        Peaje instance = new Peaje(5);
-        instance.rondaCabinas(Reloj0Mock);
-    }
-    
-
+ 
     // Test of estado method, of class Peaje.
-
-    @Test
+ 
+    @Test(expected = ArithmeticException.class)
     public void testEstado0() {
         System.out.println("estado0");
         Peaje instance = new Peaje(5);
@@ -167,14 +156,13 @@ public class PeajeTest {
     public void testEstado1() {
         System.out.println("estado1");
         Peaje instance = new Peaje(5);
-        instance.estado(Reloj0Mock);
-    }
-    
-    @Test
-    public void testEstado2() {
-        System.out.println("estado2");
-        Peaje instance = new Peaje(5);
-        instance.estado(Reloj0Mock);
+        instance.guardarCola(0, Reloj0Mock);
+        instance.guardarCola(1, Reloj1Mock);
+        instance.guardarCola(2, Reloj1Mock);
+        instance.guardarCola(3, Reloj2Mock);
+        instance.eligeCabina();
+        instance.rondaCabinas(Reloj1Mock);
+        instance.estado(Reloj2Mock);
     }
 
 }
